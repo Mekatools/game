@@ -7,4 +7,27 @@ li { margin:8px 0; list-style:none; }
 .ready { color:#4cff8a; }
 #spinner { font-size:28px; text-align:center; margin:24px 0; min-height:40px; }
 #map { height:70vh; width:100%; }
-#hud { padding:8px 16px; background:#1f1933; }
+
+/* menu */
+.title { text-align:center; margin:24px 0 8px; }
+.coinbar { text-align:center; margin-bottom:20px; color:#ffd54c; }
+button.big { display:block; width:100%; margin:12px 0; padding:16px; font-size:20px; }
+button.back { background:#2a2340; margin-bottom:12px; }
+.roomcode { font-size:20px; margin-bottom:12px; }
+.roomcode b { letter-spacing:4px; color:#4cc3ff; }
+.note { font-size:13px; color:#aaa; }
+
+/* profile */
+#profileInfo { margin-top:16px; line-height:1.8; }
+
+/* shop */
+.shopCard { display:flex; align-items:center; gap:12px; background:#1f1933; padding:10px 14px; border-radius:10px; margin:8px 0; }
+.shopEmoji { font-size:36px; }
+.shopText { flex:1; }
+.shopCard button { padding:8px 12px; font-size:14px; }
+.shopCard button.equipped { background:#2e7d4f; }
+.testbtn { margin-top:20px; background:#444; font-size:13px; }
+
+/* game top bar */
+#hudbar { display:flex; justify-content:space-between; align-items:center; padding:8px 16px; background:#1f1933; }
+#hudbar button { padding:6px 12px; font-size:14px; }
