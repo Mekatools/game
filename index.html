@@ -10,8 +10,21 @@
 </head>
 <body>
 
-<div id="lobby" class="screen active">
+<!-- MAIN MENU -->
+<div id="menu" class="screen active">
+  <h1 class="title">🕵️ Hunter vs Hider</h1>
+  <div id="menuCoins" class="coinbar"></div>
+  <button class="big" onclick="createRoom()">➕ Create Room</button>
+  <button class="big" onclick="showScreen('join')">🔑 Join Room</button>
+  <button class="big" onclick="openProfile()">👤 Profile</button>
+  <button class="big" onclick="openShop()">🛒 Pet Shop</button>
+</div>
+
+<!-- LOBBY (after creating a room) -->
+<div id="lobby" class="screen">
+  <button class="back" onclick="showScreen('menu')">← Back</button>
   <h2>Lobby</h2>
+  <div class="roomcode">Room code: <b id="roomCode">----</b></div>
   <input id="nameInput" placeholder="Player name">
   <button onclick="addPlayer()">Add</button>
   <ul id="playerList"></ul>
@@ -19,16 +32,47 @@
   <div id="spinner"></div>
 </div>
 
+<!-- JOIN ROOM -->
+<div id="join" class="screen">
+  <button class="back" onclick="showScreen('menu')">← Back</button>
+  <h2>Join Room</h2>
+  <input id="joinCode" placeholder="Room code" maxlength="4"><br><br>
+  <input id="joinName" placeholder="Your name"><br><br>
+  <button onclick="joinRoom()">Join</button>
+  <p class="note">Joining rooms on other phones needs the room server (next step). For now it only works with a room made on this same device.</p>
+</div>
+
+<!-- PROFILE -->
+<div id="profile" class="screen">
+  <button class="back" onclick="showScreen('menu')">← Back</button>
+  <h2>Profile</h2>
+  <input id="profileName" placeholder="Your name">
+  <button onclick="saveProfile()">Save</button>
+  <div id="profileInfo"></div>
+</div>
+
+<!-- PET SHOP -->
+<div id="shop" class="screen">
+  <button class="back" onclick="showScreen('menu')">← Back</button>
+  <h2>Pet Shop</h2>
+  <div id="shopCoins" class="coinbar"></div>
+  <div id="shopList"></div>
+  <button class="testbtn" onclick="addTestCoins()">Test: +100 coins</button>
+</div>
+
+<!-- GAME MAP -->
 <div id="game" class="screen" style="padding:0;max-width:none;">
-  <div id="hud"></div>
+  <div id="hudbar"><span id="hud"></span><button onclick="leaveGame()">Menu</button></div>
   <div id="petBox"></div>
   <div id="map"></div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/menu.js"></script>
 <script src="js/lobby.js"></script>
 <script src="js/spinner.js"></script>
 <script src="pets/pets.js"></script>
+<script src="pets/shop.js"></script>
 <script src="js/map.js"></script>
 </body>
 </html>
