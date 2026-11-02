@@ -1,0 +1,10 @@
+body { margin:0; font-family:sans-serif; background:#14101f; color:#fff; }
+.screen { display:none; padding:16px; max-width:480px; margin:auto; }
+.screen.active { display:block; }
+button { padding:10px 16px; border:0; border-radius:8px; background:#7c4dff; color:#fff; font-size:16px; cursor:pointer; }
+input { padding:10px; border-radius:8px; border:0; font-size:16px; }
+li { margin:8px 0; list-style:none; }
+.ready { color:#4cff8a; }
+#spinner { font-size:28px; text-align:center; margin:24px 0; min-height:40px; }
+#map { height:70vh; width:100%; }
+#hud { padding:8px 16px; background:#1f1933; }
