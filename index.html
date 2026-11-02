@@ -5,22 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hunter vs Hider</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<style>
-  body { margin:0; font-family:sans-serif; background:#14101f; color:#fff; }
-  .screen { display:none; padding:16px; max-width:480px; margin:auto; }
-  .screen.active { display:block; }
-  button { padding:10px 16px; border:0; border-radius:8px; background:#7c4dff; color:#fff; font-size:16px; cursor:pointer; }
-  input { padding:10px; border-radius:8px; border:0; font-size:16px; }
-  li { margin:8px 0; list-style:none; }
-  .ready { color:#4cff8a; }
-  #spinner { font-size:28px; text-align:center; margin:24px 0; min-height:40px; }
-  #map { height:70vh; width:100%; }
-  #hud { padding:8px 16px; background:#1f1933; }
-</style>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="pets/pets.css">
 </head>
 <body>
 
-<!-- SCREEN 1: LOBBY -->
 <div id="lobby" class="screen active">
   <h2>Lobby</h2>
   <input id="nameInput" placeholder="Player name">
@@ -30,95 +19,16 @@
   <div id="spinner"></div>
 </div>
 
-<!-- SCREEN 2: GAME MAP -->
 <div id="game" class="screen" style="padding:0;max-width:none;">
   <div id="hud"></div>
+  <div id="petBox"></div>
   <div id="map"></div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-  // ---------- LOBBY LOGIC ----------
-  let players = [];   // each: { name, ready }
-
-  function addPlayer() {
-    const input = document.getElementById("nameInput");
-    const name = input.value.trim();
-    if (!name) return;
-    players.push({ name: name, ready: false });
-    input.value = "";
-    renderPlayers();
-  }
-
-  function toggleReady(i) {
-    players[i].ready = !players[i].ready;
-    renderPlayers();
-  }
-
-  function renderPlayers() {
-    const list = document.getElementById("playerList");
-    list.innerHTML = "";
-    players.forEach((p, i) => {
-      const li = document.createElement("li");
-      li.innerHTML = p.name + " ";
-      const btn = document.createElement("button");
-      btn.textContent = p.ready ? "Ready ✔" : "Tap ready";
-      if (p.ready) btn.className = "ready";
-      btn.onclick = () => toggleReady(i);
-      li.appendChild(btn);
-      list.appendChild(li);
-    });
-  }
-
-  // ---------- SPINNER ----------
-  function startSpin() {
-    if (players.length < 2) { alert("Need at least 2 players"); return; }
-    if (!players.every(p => p.ready)) { alert("Everyone must tap ready"); return; }
-
-    const spinner = document.getElementById("spinner");
-    const hiderIndex = Math.floor(Math.random() * players.length);
-    let ticks = 0;
-
-    const timer = setInterval(() => {
-      // flash random names while "spinning"
-      spinner.textContent = players[Math.floor(Math.random() * players.length)].name;
-      ticks++;
-      if (ticks > 20) {
-        clearInterval(timer);
-        spinner.textContent = "Hider: " + players[hiderIndex].name + " 🫥";
-        players.forEach((p, i) => p.role = (i === hiderIndex) ? "Hider" : "Hunter");
-        setTimeout(() => showGame(players[0]), 1500);
-      }
-    }, 100);
-  }
-
-  // ---------- MAP + GPS ----------
-  let map, myMarker;
-
-  function showGame(me) {
-    document.getElementById("lobby").classList.remove("active");
-    document.getElementById("game").classList.add("active");
-    document.getElementById("hud").textContent = me.name + " is a " + me.role;
-
-    map = L.map("map").setView([19.076, 72.8777], 13); // starts on Mumbai
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "© OpenStreetMap contributors"
-    }).addTo(map);
-
-    if (!navigator.geolocation) { alert("No GPS support"); return; }
-
-    navigator.geolocation.watchPosition(pos => {
-      const lat = pos.coords.latitude;
-      const lng = pos.coords.longitude;
-      if (!myMarker) {
-        myMarker = L.marker([lat, lng]).addTo(map);
-        map.setView([lat, lng], 17);
-      } else {
-        myMarker.setLatLng([lat, lng]);
-      }
-    }, err => alert("GPS error: " + err.message),
-    { enableHighAccuracy: true });
-  }
-</script>
+<script src="js/lobby.js"></script>
+<script src="js/spinner.js"></script>
+<script src="pets/pets.js"></script>
+<script src="js/map.js"></script>
 </body>
 </html>
