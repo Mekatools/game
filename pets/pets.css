@@ -1,0 +1,6 @@
+#petBox { display:flex; align-items:center; gap:14px; padding:8px 16px; background:#1f1933; }
+.pet { position:relative; line-height:1; animation:bob 1.6s ease-in-out infinite; }
+.pet .extra { position:absolute; top:-0.35em; right:-0.3em; font-size:0.45em; }
+.petInfo { font-size:14px; }
+.petInfo button { margin-top:4px; padding:6px 10px; font-size:13px; }
+@keyframes bob { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
